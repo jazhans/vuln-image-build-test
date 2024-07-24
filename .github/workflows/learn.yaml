@@ -16,19 +16,20 @@ jobs:
     needs: build-image
     runs-on: self-hosted
     steps:
-      - name: Scan It
-        run: |
-          trivy image --format sarif -o report.sarif jaz-test:latest      
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
+        with:
+          image-ref: 'jaz-test:latest'
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
 
-  upload-report:
-    needs: scan-image
-    runs-on: self-hosted
-    steps:
-      - name: Upload Scan Report
+      - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: 'report.sarif'
-
+          sarif_file: 'trivy-results.sarif' 
+  
   run-container:
     needs: upload-report
     runs-on: self-hosted
