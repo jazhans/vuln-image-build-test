@@ -18,7 +18,7 @@ jobs:
           #     - name: Build container  
           #       run: |
           #         docker build . --file Dockerfile --tag jaz-test:latest
-
+          #
   scan-image:
     needs: check-user
     runs-on: self-hosted
