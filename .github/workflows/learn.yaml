@@ -8,19 +8,19 @@ jobs:
       - name: Check User
         run: whoami
 
-  build-image:
-    needs: check-user
-    runs-on: self-hosted
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        
-      - name: Build container  
-        run: |
-          docker build . --file Dockerfile --tag jaz-test:latest
+          #build-image:
+          #    needs: check-user
+          #    runs-on: self-hosted
+          #   steps:
+          #      - name: Checkout
+          #        uses: actions/checkout@v4
+          #       
+          #     - name: Build container  
+          #       run: |
+          #         docker build . --file Dockerfile --tag jaz-test:latest
 
   scan-image:
-    needs: build-image
+    needs: check-user
     runs-on: self-hosted
     steps:
       - name: Run Trivy vulnerability scanner
