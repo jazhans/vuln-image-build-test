@@ -33,10 +33,10 @@ jobs:
         with:
           sarif_file: 'trivy-results.sarif' 
   
-  run-container:
-    needs: scan-image
-    runs-on: self-hosted
-    steps:  
-      - name: Run Container
-        run: |
-          docker run --rm jaz-test:latest
+  # run-container:
+  #   needs: scan-image
+  #   runs-on: self-hosted
+  #   steps:  
+  #     - name: Run Container
+  #       run: |
+  #         docker run --rm jaz-test:latest
