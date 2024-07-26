@@ -24,7 +24,7 @@ jobs:
           image-ref: 'jaz-test:latest'
           hide-progress: false
           format: 'template'
-          template: '@trivy/github-markdown.tpl'
+          template: '@/home/jazhans/vuln-image-build-test/github-markdown.tpl'
           ignore-unfixed: true
           output: 'trivy.md'
           severity: 'CRITICAL,HIGH'
