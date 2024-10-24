@@ -21,7 +21,7 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: 'image'
-          image-ref: 'jaz-test:latest'
+          image-ref: 'python:3.9-slim'
           hide-progress: false
           format: 'sarif'
           ignore-unfixed: false
