@@ -23,24 +23,13 @@ jobs:
           scan-type: 'image'
           image-ref: 'jaz-test:latest'
           hide-progress: false
-          format: 'template'
-          template: '@/home/jazhans/vuln-image-build-test/github-markdown.tpl'
-          ignore-unfixed: true
-          output: 'trivy.md'
-          severity: 'CRITICAL,HIGH'
-          exit-code: 1
-        #run: cat trivy.md >> $GITHUB_STEP_SUMMARY
-        #if: always()
-#
-      # - name: Upload Trivy scan results to GitHub Security tab
-      #   uses: github/codeql-action/upload-sarif@v3
-      #   with:
-      #     sarif_file: 'trivy-results.sarif' 
-  
-  # run-container:
-  #   needs: scan-image
-  #   runs-on: self-hosted
-  #   steps:  
-  #     - name: Run Container
-  #       run: |
-  #         docker run --rm jaz-test:latest
+          format: 'sarif'
+          ignore-unfixed: false
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH,MEDIUM'
+          exit-code: 0 
+          
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'trivy-results.sarif' 
